@@ -6,7 +6,7 @@
 /*   By: rjobert <rjobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:47:07 by rjobert           #+#    #+#             */
-/*   Updated: 2024/02/26 17:04:15 by rjobert          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:19:12 by rjobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ public:
 	int shortestSpan() const;
 	int longestSpan() const;
 	
-	template <typename T>
-	void multipleAdd(typename T::iterator begin, typename T::iterator end);
+	void multipleAdd(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+	// template <typename T>
+	// void multipleAdd(typename T::iterator begin, typename T::iterator end);
 	
 	void printvec() const;
 };
 
-//tempalte function defined here, subject doesn't allow .tpp
-template <typename T>
-void Span::multipleAdd(typename T::iterator begin, typename T::iterator end)
-{
-	if (std::distance(begin, end) >= this->_N)
-		throw std::out_of_range("Range Filling would outgrow the Span instance");
-	for (typename T::const_iterator start = begin; start != end; ++start)
-		this->addNumber(*start);
-}
+// //template function defined here, subject doesn't allow .tpp
+// void Span::multipleAdd(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+// {
+// 	if (std::distance(begin, end) >= this->_N)
+// 		throw std::out_of_range("Range Filling would outgrow the Span instance");
+// 	for (std::vector<int>::const_iterator start = begin; start != end; ++start)
+// 		this->addNumber(*start);
+// }
 #endif
