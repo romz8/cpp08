@@ -6,7 +6,7 @@
 /*   By: rjobert <rjobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:59:59 by rjobert           #+#    #+#             */
-/*   Updated: 2024/02/27 17:36:49 by rjobert          ###   ########.fr       */
+/*   Updated: 2024/02/28 12:59:11 by rjobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ void Span::printvec() const
 //template function defined here, subject doesn't allow .tpp
 void Span::multipleAdd(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
-	if (std::distance(begin, end) > this->_N)
+	if (_vec.size() + std::distance(begin, end) > this->_N)
 		throw std::out_of_range("ERROR : Range Filling would outgrow the Span instance");
-	for (std::vector<int>::const_iterator start = begin; start != end; ++start)
-		this->addNumber(*start);
+	this->_vec.insert(_vec.begin(), begin, end);
 }
 
