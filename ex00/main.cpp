@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romainjobert <romainjobert@student.42.f    +#+  +:+       +#+        */
+/*   By: rjobert <rjobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:20:51 by romainjober       #+#    #+#             */
-/*   Updated: 2024/02/23 13:12:05 by romainjober      ###   ########.fr       */
+/*   Updated: 2024/02/29 12:11:29 by rjobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 #include <queue>
 #include <stack>
 #include <cstdlib> 
+#include <ctime>
+
 
 /*
 receive an empty non-associative container and a size, 
 fill it with random values (modulo max char to be potential int, float, char)
-then randomly either return a number that is guarantee to be inside the continer 
+then randomly either return a number that is guarantee to be inside the container 
 or not
 */
 template <typename T>
@@ -32,7 +34,7 @@ typename T::value_type seqctr_loader(T& ctr, size_t size)
                 typename T::value_type val = static_cast<typename T::value_type>(rand() % std::numeric_limits<char>::max());
                 ctr.push_back(val);
         }
-        int idx = rand();
+        int idx = rand() % std::numeric_limits<char>::max();
         if (idx % 2)
         {
                 idx = idx % size;
@@ -44,8 +46,8 @@ typename T::value_type seqctr_loader(T& ctr, size_t size)
         }
         else
         {
-            std::cout << "NO FOUND GUARANTEE :look for : " << idx << std::endl;
-            return (idx);
+            std::cout << "NO FOUND GUARANTEE :look for : " << static_cast<typename T::value_type>(idx) << std::endl;
+            return (static_cast<typename T::value_type>(idx));
         }
 }
 
@@ -75,22 +77,28 @@ void printContainer(const Container& container)
 
 int main(void)
 {
+        srand(static_cast<unsigned int>(time(NULL)));
         std::vector<int> vec;
-        std::vector<float> lst;
-        std::deque<double> dq;
-        //std::list<std::string> lst;
-        // std::queue<char> q;
-        // std::stack<double> stk;
+        std::list<char> lst;
+        std::deque<float> dq;
+        std::vector<int> empt;
 
         int i = seqctr_loader(vec, 20);
         float f = seqctr_loader(lst, 10);
         double d = seqctr_loader(dq, 42);
         
+        std::cout << "\nprinting the container content\n";
         printContainer(vec);
         printContainer(lst);
         printContainer(dq);
+        printContainer(empt);
         
         find_wrapper(vec, i);
         find_wrapper(lst, f);
         find_wrapper(dq, d);
+
+        std::cout << "\nTest : looking for 100 in empty container\n";
+        find_wrapper(empt, 100);
+        
+        std::cout << "\nAll test done\n";
 }   
